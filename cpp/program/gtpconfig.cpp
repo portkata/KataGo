@@ -209,11 +209,13 @@ string GTPConfig::makeConfig(
   if(maxPonderTime <= 0)               replace("$$PONDERING", "ponderingEnabled = false\n# maxTimePondering = 60");
   else if(maxPonderTime < 1e20)        replace("$$PONDERING", "ponderingEnabled = true\nmaxTimePondering = " + Global::doubleToString(maxPonderTime));
   else                                 replace("$$PONDERING", "ponderingEnabled = true\n# maxTimePondering = 60");
-
+   
   replace("$$NUM_SEARCH_THREADS", Global::intToString(numSearchThreads));
   replace("$$NN_CACHE_SIZE_POWER_OF_TWO", Global::intToString(nnCacheSizePowerOfTwo));
   replace("$$NN_MUTEX_POOL_SIZE_POWER_OF_TWO", Global::intToString(nnMutexPoolSizePowerOfTwo));
-
+ 
+  if(maxPlayouts = 1)                  replace("$$NUM_SEARCH_THREADS", "numSearchthreads = 1")
+  
   if(deviceIdxs.size() <= 0) {
     replace("$$MULTIPLE_GPUS", "");
   }
